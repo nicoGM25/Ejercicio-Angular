@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="miTienda">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.css">
+    <style>
+    *{
+        box-sizing: border-box;
+    }
+    body {
+        margin-top: 20px;
+    }
+    .imagen{
+        width: 50%;
+        padding: .3em;
+        margin: .3em auto;
+    }
+    .imagen .img{
+        width: 100%;
+    }
+    .stock-descuento{
+        font-size: 1.1em;
+    }
+    .card{
+        padding: .3em;
+    }
+    .precios{
+        margin-top: 10px;
+    }
+    </style>
+</head>
+
+<body ng-controller="TiendaController as Tienda">
+
+    <div class="container">
+        <div class="row">
+            <div ng-repeat="producto in Tienda.productos" class="col-sm-12 col-md-6 col-lg-3 card">
+                <h2>{{producto.nombre}}</h2>
+                <div>
+                    <span ng-class="producto.stock >= 15 ? 'label-success' : (producto.stock > 0 ? 'label-warning' : 'label-danger')" class="label stock-descuento p-2">Stock: {{producto.stock}}</span>
+                    <span class="label label-info stock-descuento p-2">Descuento: {{producto.descuento}}%</span>
+                    <p class="precios">{{producto.precio|currency}} // <b>{{producto.precio - producto.precio*producto.descuento/100|currency}}</b></p>
+                </div>
+                <div class="imagen">
+                    <img class="img" ng-src="{{producto.img}}">
+                </div>
+                <div class="boton">
+                    <button class="btn btn-success" ng-disabled="producto.stock === 0">Comprar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="angular/angular.min.js"></script>
+    <script src="scripts/angular-locale_es-es.js"></script>
+    <script src="scripts/app2.js"></script>
+</body>
+
+</html>
